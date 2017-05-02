@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from douban import DouBan
-from mysql import Mysql
+from requststutorial.mysql import Mysql
+
+from requststutorial.douban import DouBan
 
 
 class SaveData:
