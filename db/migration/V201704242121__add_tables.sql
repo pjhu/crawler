@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS `movies`;
+CREATE TABLE `movies` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `directors` VARCHAR(100) DEFAULT NULL,
+    `stars` VARCHAR(100) DEFAULT NULL,
+    `country` VARCHAR(20) DEFAULT NULL,
+    `year` VARCHAR(4),
+    `link` VARCHAR(100) DEFAULT NULL,
+    `description` VARCHAR(100) DEFAULT NULL
+)DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `movie_types`;
+CREATE TABLE `movie_types` (
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `movie_name` VARCHAR(100) NOT NULL,
+    `movie_type` VARCHAR(20) NOT NULL
+)DEFAULT CHARSET=utf8;
