@@ -28,7 +28,9 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+# zhihu Crawl-delay: 10
+# DOWNLOAD_DELAY = 10
+# DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 CONCURRENT_REQUESTS_PER_IP = 16
@@ -74,7 +76,8 @@ DEFAULT_REQUEST_HEADERS = {
 #    'tutorial.pipelines.TutorialPipeline': 300,
 #}
 ITEM_PIPELINES = {
-    'tutorial.pipelines.ZhMysqlPipeline': 300,
+    # 'tutorial.pipelines.ZhMysqlPipeline': 300,
+    'tutorial.pipelines.JsMysqlPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

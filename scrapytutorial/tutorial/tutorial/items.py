@@ -18,3 +18,14 @@ class TutorialItem(scrapy.Item):
     following_columns_count = scrapy.Field()
     following_topic_count = scrapy.Field()
     articles_count = scrapy.Field()
+
+
+class JsItem(scrapy.Item):
+    # define the fields for your item here like:
+    url_token = scrapy.Field()
+    name = scrapy.Field()
+    following_count = scrapy.Field()
+    followers_count = scrapy.Field()
+    articles_count = scrapy.Field()
+    words_count = scrapy.Field()
+    like_count = scrapy.Field()
