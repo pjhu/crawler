@@ -65,15 +65,11 @@ class JsMysqlPipeline(object):
             .format(**item)
         ddl = "\n".join([insert_shops, insert_value])
 
-        try:
-            with self._mysql.cursor() as cursor:
-                # Create a new record
-                cursor.execute(ddl)
+        with self._mysql.cursor() as cursor:
+            # Create a new record
+            cursor.execute(ddl)
 
-                # connection is not autocommit by default. So you must commit to save
-                # your changes.
-                self._mysql.commit()
-        except Exception as inst:
-            print(inst)
-            self._mysql.close()
+            # connection is not autocommit by default. So you must commit to save
+            # your changes.
+            self._mysql.commit()
         return item
