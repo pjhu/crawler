@@ -6,7 +6,7 @@ from ..items import JigsawItem
 class People(scrapy.Spider):
     name = 'jigsaw'
     url = 'https://jigsaw.thoughtworks.net'
-    cookie = {'_jigsaw_session': 'xxxxxxxxxxxxxx'}
+    cookie = {'_jigsaw_session': 'eb222a36fb6188a9a64dda9af6c9d41e'}
 
     def start_requests(self):
         first_page = '/consultants/search?utf8=%E2%9C%93&criteria[free_text]=&criteria[assignment_on]=&' \

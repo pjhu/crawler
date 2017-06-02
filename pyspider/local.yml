@@ -1,0 +1,34 @@
+version: "3"
+services:
+  scheduler:
+    image: pyspider:3.6
+    command: '--taskdb "mysql+taskdb://root@10.208.20.94:3306/taskdb" --resultdb "mysql+resultdb://root@10.208.20.94:3306/resultdb" --projectdb "mysql+projectdb://root@10.208.20.94:3306/projectdb" --message-queue "redis://10.208.20.94:6379/db"  scheduler --inqueue-limit 5000 --delete-time 43200'
+    ports:
+      - "23333:23333"
+
+  fetcher:
+    image: pyspider:3.6
+    command: '--message-queue "redis://10.208.20.94:6379/db" fetcher --xmlrpc'
+    environment:
+      - EXCLUDE_PORTS=5000,23333,24444
+
+  processor:
+    image: pyspider:3.6
+    command: '--taskdb "mysql+taskdb://root@10.208.20.94:3306/taskdb" --resultdb "mysql+resultdb://root@10.208.20.94:3306/resultdb" --projectdb "mysql+projectdb://root@10.208.20.94:3306/projectdb" --message-queue "redis://10.208.20.94:6379/db" processor'
+
+  result-worker:
+    image: pyspider:3.6
+    command: '--taskdb "mysql+taskdb://root@10.208.20.94:3306/taskdb" --resultdb "mysql+resultdb://root@10.208.20.94:3306/resultdb" --projectdb "mysql+projectdb://root@10.208.20.94:3306/projectdb" --message-queue "redis://10.208.20.94:6379/db" result_worker'
+
+  webui:
+    image: pyspider:3.6
+    command: '--taskdb "mysql+taskdb://root@10.208.20.94:3306/taskdb" --resultdb "mysql+resultdb://root@10.208.20.94:3306/resultdb" --projectdb "mysql+projectdb://root@10.208.20.94:3306/projectdb" --message-queue "redis://10.208.20.94:6379/db" webui --max-rate 0.2 --max-burst 3 --scheduler-rpc "http://scheduler:23333/" --fetcher-rpc "http://fetcher/"'
+    environment:
+      - EXCLUDE_PORTS=5000,23333,24444
+    links:
+      - scheduler
+      - fetcher
+      - processor
+      - result-worker
+    ports:
+      - "5000:5000"
