@@ -67,8 +67,6 @@ services:
     command: '--message-queue "redis://redis:6379/db" --phantomjs-proxy "phantomjs:80" fetcher --xmlrpc'
     env_file:
       - /home/docker/cars.env
-    links:
-      - phantomjs-lb:phantomjs
     deploy:
       replicas: 1
       placement:
@@ -110,10 +108,8 @@ services:
     command: '--taskdb "mysql+taskdb://root:root@mysql:3306/taskdb" --resultdb "mysql+resultdb://root:root@mysql:3306/resultdb" --projectdb "mysql+projectdb://root:root@mysql:3306/projectdb" --message-queue "redis://redis:6379/db" webui --max-rate 0.2 --max-burst 3 --scheduler-rpc "http://scheduler:23333/" --fetcher-rpc "http://fetcher/"'
     env_file:
       - /home/docker/cars.env
-    links:
-      - fetcher-lb:fetcher
     deploy:
-      replicas: 1
+      replicas: 4
       placement:
         constraints:
           - node.role == manager
@@ -123,21 +119,6 @@ services:
       - cars
     ports:
       - "5000:5000"
-
-  centos:
-    image: centos:6
-    command: "python -m SimpleHTTPServer 18080"
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role != manager
-      restart_policy:
-        condition: on-failure
-    ports:
-      - "18080"
-    networks:
-      - cars
 
 networks:
   cars:
