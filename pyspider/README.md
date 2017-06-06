@@ -6,6 +6,8 @@ pip install redis
 drop database projectdb;
 drop database resultdb;
 drop database taskdb;
+curl -XDELETE 10.202.129.165:9200/pyspider_resultdb
+
 # setup swarm
 
 ## create machine
