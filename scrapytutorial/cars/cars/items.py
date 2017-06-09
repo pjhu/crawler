@@ -8,13 +8,8 @@
 import scrapy
 
 
-class ElmItem(scrapy.Item):
+class CarsItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    name = scrapy.Field()
-    shop_id = scrapy.Field()
-    address = scrapy.Field()
-    latitude = scrapy.Field()
-    longitude = scrapy.Field()
-    phone = scrapy.Field()
-
+    car = scrapy.Field()
+    pass

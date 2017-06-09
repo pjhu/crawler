@@ -20,4 +20,3 @@ class JigsawItem(scrapy.Item):
     total_years = scrapy.Field()
     tw_years = scrapy.Field()
     consulting = scrapy.Field()
-    pass
