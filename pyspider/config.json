@@ -1,8 +1,8 @@
 {
-  "resultdb": "elasticsearch+resultdb://10.202.129.165:9200/?index=pyspider_resultdb",
-  "projectdb": "mysql+projectdb://10.208.20.116:3306/projectdb",
-  "taskdb": "mysql+taskdb://10.208.20.116:3306/taskdb",
-  "message_queue": "redis://10.208.20.116:6379/db",
+  "resultdb": "elasticsearch+resultdb://10.202.129.165:9200/?index=car_youxin",
+  "projectdb": "mysql+projectdb://crawler:crawler@127.0.0.1:3306/projectdb",
+  "taskdb": "mysql+taskdb://crawler:crawler@127.0.0.1:3306/taskdb",
+  "message_queue": "redis://127.0.0.1:6379/db",
   "webui": {
     "username": "admin",
     "password": "123456",

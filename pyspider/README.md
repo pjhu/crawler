@@ -4,9 +4,9 @@ pip install --egg mysql-connector-python-rf
 pip install redis
 
 drop database projectdb;
-drop database resultdb;
 drop database taskdb;
-curl -XDELETE 10.202.129.165:9200/pyspider_resultdb
+drop database resultdb;
+curl -XDELETE 10.202.129.165:9200/cars
 
 # setup swarm
 
