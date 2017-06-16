@@ -1,15 +1,12 @@
-# 目录
-- 起点
-- 搭建swarm
-- 编写docker-compose.yml
-- 部署服务
-- 感想
+[TOC]
 
+# 1. 搭建swarm
 
-# 1. 起点
-学习爬虫有一段时间了，使用过Scrapy, 就想试试其它的爬虫框架，选择pyspider也是因为想通过pyspider了解一下分布式爬虫，由于docker技术的成熟，也就顺理成章的选择docker来完成这件事。
+## 环境
+机器: MAC-10.12.5
+docker-machine: 0.10.0, build 76ed2a6
+virtualbox: 5.0.28 r111378
 
-# 2. 搭建swarm
 
 ## 创建节点
 创建三个docker machine:
@@ -75,7 +72,7 @@ wpf2jcvhhvfosv3c9ac6c50dh *   manager1            Ready               Active    
 ```
 至此，三个节点的swarm已经创建完成。
 
-# 3. 编写docker-compose.yml
+# 2. 编写docker-compose.yml
 
 ## docker-compose.yml请参考
 [docker-compose.yml](https://github.com/pjhu/crawler/blob/master/pyspider/docker-compose.yml)
@@ -97,7 +94,7 @@ wpf2jcvhhvfosv3c9ac6c50dh *   manager1            Ready               Active    
   command: '--taskdb "mysql+taskdb://root:root@10.208.20.94:3306/taskdb" --resultdb "mysql+resultdb://root:root@10.208.20.94:3306/resultdb" --projectdb "mysql+projectdb://root:root@10.208.20.94:3306/projectdb" --message-queue "redis://10.208.20.94:6379/db" webui --max-rate 10 --max-burst 3 --scheduler-rpc "http://scheduler:23333/" --fetcher-rpc "http://fetcher/"'
   ```
 
-# 4. 部署服务
+# 3. 部署服务
 ## 部署
 登陆manager1, 执行如下命令:
 ```
@@ -118,6 +115,3 @@ Creating service myspider_mysql
 Creating service myspider_scheduler
 Creating service myspider_phantomjs
 ```
-
-# 5. 感想
-由于本身对swarm stack缺乏经验，中途一度想放弃swarm, 转而采用k8s，还好坚持下来，所以也就有了这篇记录，列出了当前踩的一些坑。

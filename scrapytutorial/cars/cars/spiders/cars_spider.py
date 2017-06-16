@@ -2,6 +2,7 @@
 
 import json
 import scrapy
+import datetime
 from ..items import CarsItem
 
 
@@ -19,5 +20,6 @@ class ElmSpider(scrapy.Spider):
         cars = json.loads(response.body.decode('UTF-8'))
         for car in cars['data']['list']:
             item = CarsItem()
+            car["@timestamp"] = datetime.datetime.now().strftime("%Y-%m-%d")
             item["car"] = car
             yield item

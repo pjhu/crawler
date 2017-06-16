@@ -99,3 +99,9 @@ docker network create --driver overlay
 
 ## webui
 --taskdb "mysql+taskdb://root:root@mysql:3306/taskdb" --resultdb "mysql+resultdb://root:root@mysql:3306/resultdb" --projectdb "mysql+projectdb://root:root@mysql:3306/projectdb" --message-queue "redis://redis:6379/1" webui --max-rate 0.2 --max-burst 3 --scheduler-rpc "http://o4.i.binux.me:23333/" --fetcher-rpc "http://fetcher/"
+
+# 部署
+登陆manager1, 执行如下命令:
+```
+docker@manager1:~$ docker stack deploy -c docker-compose.yml myspider
+```

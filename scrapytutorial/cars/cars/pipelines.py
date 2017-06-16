@@ -5,7 +5,6 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-import time
 from elasticsearch import Elasticsearch
 
 
@@ -21,17 +20,12 @@ class CarsPipeline(object):
             self.es.indices.put_mapping(index=self.index, doc_type=self.__type__, body={
                 "_all": {"enabled": True},
                 "properties": {
-                    "taskid": {"enabled": False},
-                    "project": {"type": "string", "index": "not_analyzed"},
-                    "url": {"enabled": False},
+                    "carnotime": {"type": "string", "index": "analyzed"}
                 }
             })
 
     def process_item(self, item, spider):
-        obj = {
-            'result': item['car'],
-            'updatetime': time.time(),
-        }
+        obj = item['car']
         return self.es.index(index=self.index, doc_type=self.__type__,
                              body=obj, id='%s:%s' % ('youxin', item['car']['carid']))
         return item
