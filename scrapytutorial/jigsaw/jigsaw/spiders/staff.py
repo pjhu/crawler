@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import urllib.parse
-from ..items import JigsawItem
+from ..items import StaffItem
 
 
-class People(scrapy.Spider):
-    name = 'jigsaw'
+class Staff(scrapy.Spider):
+    name = 'staff'
     url = 'https://jigsaw.thoughtworks.net'
     cookie = {'_jigsaw_session': 'e8bacfe04be04718aff74724697118b5'}
     skills = ['Organisational+Transformation', 'Strategy', 'Financial+model+Advisory',
-              'Value+Driven+Portfolio+Management+%28Edge%29', 'Executive+Advisory']
+            'Value+Driven+Portfolio+Management+%28Edge%29', 'Executive+Advisory']
 
     def start_requests(self):
         for i in range(1, 6):
@@ -38,46 +37,14 @@ class People(scrapy.Spider):
                             '&criteria%5Brm_profile%5D=&criteria%5Bassignable' \
                             '%5D=include_nonassignable_twer&ajax_update' \
                             '=consultant_search_results&view=general_view&commit=Search'
-                yield scrapy.Request(url=skill_url, cookies=self.cookie, meta={'skill': skill}, callback=self.parse)
+                yield scrapy.Request(url=skill_url, cookies=self.cookie, callback=self.parse)
 
     def parse(self, response):
         selector = scrapy.Selector(response)
-        print("current page: ", selector.xpath('//em[@class="current"]/text()').extract_first())
-        users = selector.xpath('//tr[contains(@class, "odd") or contains(@class, "even")]')
-        for user in users:
-            url = user.xpath('.//a/@href').extract_first().strip()
-            yield scrapy.Request(url=self.url+url, cookies=self.cookie, meta={'skill': response.meta['skill']},
-                                 callback=self.parse_profile)
-        next_page = selector.xpath('//*[@class="next_page"]/@href').extract_first()
-        if next_page:
-            yield scrapy.Request(url=self.url + next_page, cookies=self.cookie, meta={'skill': response.meta['skill']},
-                                 callback=self.parse)
-
-    def parse_profile(self, response):
-        selector = scrapy.Selector(response)
-        item = JigsawItem()
-        item['capability'] = urllib.parse.unquote(response.meta['skill']).replace('+', ' ')
-        item['id'] = response.url.split('/')[-1]
-        item['name'] = selector.xpath('//div[@id="preferred-name"]/text()').extract_first().strip()
-        item['gender'] = selector.xpath('//span[@class="gender"]/text()').extract_first().strip()
-        item['role'] = selector.xpath('//span[@id="primary-role"]/text()').extract_first().strip()
-        item['grade'] = selector.xpath('//span[@id="grade"]/text()').extract_first().strip()
-        offices = selector.xpath('//div[@id="offices-summary"]//em[@class="value"]/text()')
-        item['region'] = offices.extract_first().split('-')[-1].strip()
-        item['home_office'] = offices[0].extract().split('-')[0].strip()
-        item['staffing_office'] = offices[1].extract().split('-')[0].strip()
-        item['working_office'] = offices[2].extract().split('-')[0].strip()
-        years = selector.xpath('//div[@id="total-experience"]')
-        item['total_years'] = years.xpath('./text()').extract_first().split(',')[0].strip()
-        item['tw_years'] = years.xpath('./em/text()').extract_first().strip()
-
-        consulting_item = selector.xpath('//div[@class="rating-group"]/h3[text()="Consulting"]/..//li')
-        consulting = {}
-        for consult in consulting_item:
-            name = consult.xpath('.//div/text()').extract_first()
-            star = len(consult.xpath('.//div[@class="rating"]/i[contains(@class, "filled-level")]'))
-            consulting[name] = star
-        item['consulting'] = consulting
+        staffs = selector.xpath('//*[@id="general_view"]/div[1]/div[2]/a[1]/@onclick')
+        page = staffs.extract_first().split('{')[1].split('(')[1].split(',')[0].strip('\"')
+        item = StaffItem()
+        item['file_urls'] = [self.url+page]
         yield item
 
 

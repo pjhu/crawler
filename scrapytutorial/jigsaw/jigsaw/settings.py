@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'jigsaw.spiders'
 USER_AGENT = 'jigsaw (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+# ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -67,10 +67,15 @@ ROBOTSTXT_OBEY = True
 #ITEM_PIPELINES = {
 #    'jigsaw.pipelines.JigsawPipeline': 300,
 #}
+
 ITEM_PIPELINES = {
     # 'tutorial.pipelines.ZhMysqlPipeline': 300,
     'jigsaw.pipelines.JigsawPipeline': 300,
+    # 'jigsaw.pipelines.StaffPipeline': 300,
+    # 'scrapy.pipelines.files.FilesPipeline': 1,
 }
+
+FILES_STORE = 'jigsaw/staff'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
