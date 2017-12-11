@@ -70,8 +70,8 @@ USER_AGENT = 'jigsaw (+http://www.yourdomain.com)'
 
 ITEM_PIPELINES = {
     # 'tutorial.pipelines.ZhMysqlPipeline': 300,
-    'jigsaw.pipelines.JigsawPipeline': 300,
-    # 'jigsaw.pipelines.StaffPipeline': 300,
+    # 'jigsaw.pipelines.JigsawPipeline': 300,
+    'jigsaw.pipelines.StaffPipeline': 300,
     # 'scrapy.pipelines.files.FilesPipeline': 1,
 }
 

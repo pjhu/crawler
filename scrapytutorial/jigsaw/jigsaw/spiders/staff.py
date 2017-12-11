@@ -6,7 +6,7 @@ from ..items import StaffItem
 class Staff(scrapy.Spider):
     name = 'staff'
     url = 'https://jigsaw.thoughtworks.net'
-    cookie = {'_jigsaw_session': 'e8bacfe04be04718aff74724697118b5'}
+    cookie = {'_jigsaw_session': '5a585a1d059be25987cd33da3b15a3af'}
     skills = ['Organisational+Transformation', 'Strategy', 'Financial+model+Advisory',
             'Value+Driven+Portfolio+Management+%28Edge%29', 'Executive+Advisory']
 

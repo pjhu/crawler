@@ -33,7 +33,7 @@ class JigsawPipeline(object):
 
 
 class StaffPipeline(FilesPipeline):
-    cookie = {'_jigsaw_session': 'e8bacfe04be04718aff74724697118b5'}
+    cookie = {'_jigsaw_session': '5a585a1d059be25987cd33da3b15a3af'}
 
     def get_media_requests(self, item, info):
         for file_url in item['file_urls']:
